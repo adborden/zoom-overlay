@@ -5,9 +5,12 @@ Gentoo overlay for the Zoom.us video conferencing client.
 
 ## Development
 
-The latest linux tarball is available here and will redirect to the speicif
+The latest linux tarball is available here and will redirect to the specific
 version/URL.
 
-https://zoom.us/client/latest/zoom_x86_64.tar.xz
+    https://zoom.us/client/latest/zoom_x86_64.tar.xz
 
-3960 60CA DD8A 7522 0BFC B369 B903 BF18 61A7 C71D
+`update_ebuilds.sh` will test this URL to figure out the latest version, and
+copy the most recent ebuild to the new version.
+
+    ./update_ebuilds.sh
