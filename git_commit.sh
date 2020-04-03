@@ -25,7 +25,7 @@ cat <<EOF > $pull_request_data
 }
 EOF
 
-curl --silent --fail --user "$GITHUB_USER:$GITHUB_TOKEN" --data "@${pull_request_data}" https://api.github.com/repos/adborden/zoom-overlay/pulls > /dev/null 2>&1
+curl --silent --fail --user "$GITHUB_TOKEN" --data "@${pull_request_data}" https://api.github.com/repos/adborden/zoom-overlay/pulls > /dev/null 2>&1
 
 rm -rf "$pull_request_data"
 
