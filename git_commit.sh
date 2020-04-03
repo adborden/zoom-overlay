@@ -12,12 +12,9 @@ git config user.name "CI bot"
 git config user.email "bot@example.com"
 git add .
 git commit -m "New ebuild"
-
 git push origin "HEAD:$branch"
 
-pull_request_data=$(mktemp)
-
-cat <<EOF > $pull_request_data
+pr_url=$(curl -v --fail --user "$GITHUB_USER:$GITHUB_TOKEN" -H 'Content-Type: application/json' --data @- https://api.github.com/repos/adborden/zoom-overlay/pulls <<EOF | jq '.url'
 {
   "title": "Ebuild for ${latest_version}",
   "head": "${branch}",
@@ -25,10 +22,6 @@ cat <<EOF > $pull_request_data
   "body": "Hello!\nThere is a new version of Zoom available for download. Please review this ebuild so that it can be published to the overlay."
 }
 EOF
+) || ( echo failed to create pull request for changes. >&2; exit 1 )
 
-
-curl  -v --fail --user "$GITHUB_USER:$GITHUB_TOKEN" -H 'Content-Type: application/json' --data "@${pull_request_data}" https://api.github.com/repos/adborden/zoom-overlay/pulls
-
-rm -rf "$pull_request_data"
-
-echo ok
+echo created pull request "$pr_url"
