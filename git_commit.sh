@@ -19,7 +19,7 @@ pr_url=$(curl -v --fail --user "$GITHUB_USER:$GITHUB_TOKEN" -H 'Content-Type: ap
   "title": "Ebuild for ${latest_version}",
   "head": "${branch}",
   "base": "master",
-  "body": "Hello!\nThere is a new version of Zoom available for download. Please review this ebuild so that it can be published to the overlay."
+  "body": "Hello!\n\nThere is a new version of Zoom available for download. Please review this ebuild so that it can be published to the overlay."
 }
 EOF
 ) || ( echo error: failed to create pull request for changes. >&2; exit 1 )
