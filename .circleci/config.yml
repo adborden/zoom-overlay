@@ -1,0 +1,18 @@
+---
+version: 2
+jobs:
+  test:
+    docker:
+      - image: chaoslab/repoman
+        entrypoint: [/bin/sh]
+        user: portage
+    steps:
+      - checkout
+      - run: repoman -dx full
+
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - test
