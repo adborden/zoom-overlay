@@ -26,7 +26,7 @@ cat <<EOF > $pull_request_data
 }
 EOF
 
-curl  --fail --user "$GITHUB_USER:$GITHUB_TOKEN" -H 'Content-Type: application/json' --data-raw "@${pull_request_data}" https://api.github.com/repos/adborden/zoom-overlay/pulls
+curl  -v --fail --user "$GITHUB_USER:$GITHUB_TOKEN" -H 'Content-Type: application/json' --data-raw "@${pull_request_data}" https://api.github.com/repos/adborden/zoom-overlay/pulls
 
 rm -rf "$pull_request_data"
 
