@@ -10,9 +10,53 @@ jobs:
       - checkout
       - run: repoman -dx full
 
+  is_latest:
+    docker:
+      - image: circleci/python
+    steps:
+      - checkout
+      - run: ./is_latest.sh
+
+  update:
+    docker:
+      - image: circleci/python
+    steps:
+      - checkout
+      - run: ./update_ebuilds.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - net-im/zoom
+
+  manifest:
+    docker:
+      - image: chaoslab/repoman
+        entrypoint: [/bin/sh]
+        user: portage
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: repoman manifest
+
 
 workflows:
   version: 2
   commit:
     jobs:
       - test
+
+  daily:
+    triggers:
+      - schedule:
+          cron: "12 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - is_latest
+      - update
+      - manifest:
+          requires:
+            - update
