@@ -29,6 +29,7 @@ function main () {
 
 	# Copy the ebuild from the last version (and hope it still works)
 	cp "$(most_recent_ebuild)" "$ebuild"
+	repoman manifest
 	echo added "$ebuild"
 }
 
