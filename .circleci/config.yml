@@ -10,6 +10,13 @@ jobs:
       - checkout
       - run: repoman -dx full
 
+  is_latest:
+    docker:
+      - image: circleci/python
+    steps:
+      - checkout
+      - run: ./is_latest.sh
+
   update:
     docker:
       - image: circleci/python
@@ -48,6 +55,7 @@ workflows:
               only:
                 - master
     jobs:
+      - is_latest
       - update
       - manifest:
           requires:
