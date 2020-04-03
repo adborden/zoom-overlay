@@ -1,6 +1,7 @@
 #!/bin/bash
 set -o errexit
 set -o pipefail
+set -x
 
 source lib/zoom.sh
 
