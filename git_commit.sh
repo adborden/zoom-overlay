@@ -51,7 +51,7 @@ function main () {
 	fi
 
 	# Make sure we haven't pushed the branch before
-	if has_remote_branch; then
+	if has_remote_branch $branch; then
 		echo remote branch already exists.
 		echo ok
 		return 1
