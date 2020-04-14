@@ -30,7 +30,7 @@ function commit_and_push () {
 }
 
 function create_pr () {
-	curl -v --fail --user "$GITHUB_USER:$GITHUB_TOKEN" -H 'Content-Type: application/json' --data @- https://api.github.com/repos/adborden/zoom-overlay/pulls <<EOF | jq -r '.url' || ( echo error: failed to create pull request for changes. >&2; exit 1 )
+	curl --fail --user "$GITHUB_USER:$GITHUB_TOKEN" -H 'Content-Type: application/json' --data @- https://api.github.com/repos/adborden/zoom-overlay/pulls <<EOF | jq -r '.url' || ( echo error: failed to create pull request for changes. >&2; exit 1 )
 {
   "title": "ebuild for net-im/zoom-${latest_version}",
   "head": "${branch}",
