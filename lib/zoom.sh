@@ -8,5 +8,5 @@ function fetch_latest_version () {
 
 # Find the most recent ebuild
 function most_recent_ebuild () {
-	ls -1 net-im/zoom/zoom-*.ebuild | sort -n | head -1
+	ls -1 net-im/zoom/zoom-*.ebuild | sort -r | head -1
 }
