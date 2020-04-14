@@ -1,6 +1,7 @@
 #!/bin/bash
 set -o errexit
 set -o pipefail
+set -x
 
 source lib/zoom.sh
 
@@ -11,22 +12,22 @@ branch="ebuild-$latest_version"
 # only return 0 for untracked files. Changes do existing files are not
 # conisdered.
 function has_untracked_files () {
-	[[ "$(git ls-files --others --exclude-standard | wc -l)" -gt 0 ]]
+  [[ "$(git ls-files --others --exclude-standard | wc -l)" -gt 0 ]]
 }
 
 function has_remote_branch () {
-	local branch
-	branch=${1}
+  local branch
+  branch=${1}
 
-	git ls-remote --quiet --heads | grep --quiet --word-regexp "refs/heads/${branch}"
+  git ls-remote --quiet --heads | grep --quiet --word-regexp "refs/heads/${branch}"
 }
 
 function commit_and_push () {
-	git config user.name "CI bot"
-	git config user.email "bot@example.com"
-	git add net-im/zoom
-	git commit -m "net-im/zoom-${latest_version}"
-	git push origin "HEAD:$branch"
+  git config user.name "CI bot"
+  git config user.email "bot@example.com"
+  git add net-im/zoom
+  git commit -m "net-im/zoom-${latest_version}"
+  git push origin "HEAD:$branch"
 }
 
 function create_pr () {
@@ -41,29 +42,29 @@ EOF
 }
 
 function main () {
-	local pr_url
+  local pr_url
 
-	# Make sure there are changes to commit
-	if ! has_untracked_files; then
-		echo no untracked files to commit.
-		echo ok
-		return 1
-	fi
+  # Make sure there are changes to commit
+  if ! has_untracked_files; then
+          echo no untracked files to commit.
+          echo ok
+          return 1
+  fi
 
-	# Make sure we haven't pushed the branch before
-	if has_remote_branch $branch; then
-		echo remote branch already exists.
-		echo ok
-		return 1
-	fi
+  # Make sure we haven't pushed the branch before
+  if has_remote_branch $branch; then
+          echo remote branch already exists.
+          echo ok
+          return 1
+  fi
 
-	# Commit changes and push
-	commit_and_push
+  # Commit changes and push
+  commit_and_push
 
-	# We don't check for an existing pull request, but we already checked the
-	# remote branch doesn't exist, so the PR shouldn't exist either.
-	pr_url=$(create_pr)
-	echo created pull request "$pr_url"
+  # We don't check for an existing pull request, but we already checked the
+  # remote branch doesn't exist, so the PR shouldn't exist either.
+  pr_url=$(create_pr)
+  echo created pull request "$pr_url"
 }
 
 
