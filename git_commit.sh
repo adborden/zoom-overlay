@@ -19,14 +19,14 @@ function has_remote_branch () {
 	local branch
 	branch=${1}
 
-	git ls-remote --quiet --heads | grep --quiet --word-regexp "refs/heads/${branch}" 
+	git ls-remote --quiet --heads | grep --quiet --word-regexp "refs/heads/${branch}"
 }
 
 function commit_and_push () {
 	git config user.name "CI bot"
 	git config user.email "bot@example.com"
 	git add net-im/zoom
-	git commit -m "New ebuild"
+	git commit -m "net-im/zoom-${latest_version}",
 	git push origin "HEAD:$branch"
 }
 
