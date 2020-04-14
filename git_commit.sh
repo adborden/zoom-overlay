@@ -1,7 +1,6 @@
 #!/bin/bash
 set -o errexit
 set -o pipefail
-set -x
 
 source lib/zoom.sh
 
@@ -26,7 +25,7 @@ function commit_and_push () {
 	git config user.name "CI bot"
 	git config user.email "bot@example.com"
 	git add net-im/zoom
-	git commit -m "net-im/zoom-${latest_version}",
+	git commit -m "net-im/zoom-${latest_version}"
 	git push origin "HEAD:$branch"
 }
 
