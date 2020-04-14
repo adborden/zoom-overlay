@@ -7,7 +7,7 @@ inherit unpacker
 
 DESCRIPTION="Zoom.us video conferencing client."
 HOMEPAGE="https://zoom.us"
-SRC_URI="https://d11yldzmag5yn.cloudfront.net/prod/${PV}/zoom_x86_64.tar.xz"
+SRC_URI="https://d11yldzmag5yn.cloudfront.net/prod/${PV}/zoom_x86_64.tar.xz -> zoom_x86_64-${PV}.tar.xz"
 
 LICENSE="zoom-eula"
 SLOT="0"
