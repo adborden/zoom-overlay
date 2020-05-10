@@ -3,9 +3,11 @@ version: 2
 jobs:
   test:
     docker:
-      - image: chaoslab/repoman
+      - image: aegypius/repoman
         entrypoint: [/bin/sh]
-        user: portage
+    working_directory: /overlay
+    environment:
+      FEATURES: -ipc-sandbox -network-sandbox -pid-sandbox
     steps:
       - checkout
       - run: repoman -dx full
@@ -30,9 +32,11 @@ jobs:
 
   manifest:
     docker:
-      - image: chaoslab/repoman
+      - image: aegypius/repoman
         entrypoint: [/bin/sh]
-        user: portage
+    working_directory: /overlay
+    environment:
+      FEATURES: -ipc-sandbox -network-sandbox -pid-sandbox
     steps:
       - checkout
       - attach_workspace:
