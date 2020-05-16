@@ -5,13 +5,14 @@ set -o pipefail
 
 source lib/zoom.sh
 
-# Test the latest ebuild exists
-latest_ebuild="net-im/zoom/zoom-$(fetch_latest_version).ebuild"
+latest_version=$(fetch_latest_version)
+latest_ebuild="net-im/zoom/zoom-$latest_version.ebuild"
 
+# Test the latest ebuild exists
 if [[ -e "${latest_ebuild}" ]]; then
 	echo ok
 	exit 0
 fi
 
-echo "$latest_ebuild" does not exist and should be created. >&2
+echo "$latest_version"
 exit 1

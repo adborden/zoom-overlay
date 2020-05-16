@@ -47,17 +47,17 @@ workflows:
     jobs:
       - test
 
-  daily:
-    triggers:
-      - schedule:
-          cron: "12 0 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - is_latest
-      - update
-      - manifest:
-          requires:
-            - update
+  #daily:
+  #  triggers:
+  #    - schedule:
+  #        cron: "12 0 * * *"
+  #        filters:
+  #          branches:
+  #            only:
+  #              - master
+  #  jobs:
+  #    - is_latest
+  #    - update
+  #    - manifest:
+  #        requires:
+  #          - update
