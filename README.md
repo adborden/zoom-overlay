@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/adborden/zoom-overlay.svg?style=svg)](https://circleci.com/gh/adborden/zoom-overlay)
+
 # zoom-overlay
 
 Gentoo overlay for the Zoom.us video conferencing client.
