@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Create a new ebuild
         run: |
+          set -x
           if [[ ./is_latest.sh ]]; then
             exit 0
           fi
