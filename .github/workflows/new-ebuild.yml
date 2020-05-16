@@ -12,14 +12,13 @@ jobs:
       - uses: actions/checkout@master
       - name: Create a new ebuild
         run: |
-          set -x
           if ./is_latest.sh; then
             exit 0
           fi
           echo "::set-env name=latest_verion::$(./is_latest.sh || exit 0)"
           ./update_ebuilds.sh
           docker pull aegypius/repoman
-          docker run --rm -it -v $(pwd):/overlay aegypius/repoman manifest
+          docker run --rm -v $(pwd):/overlay aegypius/repoman manifest
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
