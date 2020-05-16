@@ -30,13 +30,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ebuild-${{ env.latest_version }}
       - name: Initialize Pull Request
-        uses: gha-utilities/init-pull-request@v0.1.6
+        uses: repo-sync/pull-request@v2
         with:
-          pull_request_token: ${{ secrets.GITHUB_TOKEN }}
-          head: ebuild-${{ env.latest_version }}
-          base: master
-          title: ebuild for net-im/zoom-${{ env.latest_version }}
-          body: >
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_branch: ebuild-${{ env.latest_version }}
+          destination_branch: master
+          pr_title: ebuild for net-im/zoom-${{ env.latest_version }}
+          pr_body: >
             Hello!
 
             There is a new version of Zoom available for download. Please
