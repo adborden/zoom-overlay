@@ -1,0 +1,15 @@
+---
+name: Test
+on: push
+
+jobs:
+  repoman:
+    runs-on: ubuntu-latest
+    container:
+      image: aegypius/repoman
+      env:
+        FEATURES: -ipc-sandbox -network-sandbox -pid-sandbox
+    steps:
+      - uses: actions/checkout@master
+      - name: repoman full check
+        run: repoman -dx full

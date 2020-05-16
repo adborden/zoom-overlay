@@ -1,0 +1,57 @@
+---
+name: New ebuild
+on:
+  schedule:
+    - cron: 0 * * * *
+
+jobs:
+  is_latest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Check for new versions
+        id: is_latest
+        run: |
+          echo "::set-output name=latest_version::$(./is_latest.sh)"
+    outputs:
+      latest_version: ${{ steps.is_latest.outputs.latest_version }}
+
+  pull-request:
+    runs-on: ubuntu-latest
+    needs:
+      - is_latest
+    if: ${{ needs.is_latest.outputs.latest_version }}
+    env:
+      latest_version: ${{ needs.is_latest.outputs.latest_version }}
+    steps:
+      - uses: actions/checkout@master
+      - name: Create a new ebuild
+        env:
+          FEATURES: -ipc-sandbox -network-sandbox -pid-sandbox
+        run: |
+          ./update_ebuilds.sh
+          docker pull aegypius/repoman
+          docker run --rm -v $(pwd):/overlay aegypius/repoman manifest
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add net-im/zoom
+          git commit -m "net-im/zoom-${latest_version}"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ebuild-${{ env.latest_version }}
+      - name: Initialize Pull Request
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_branch: ebuild-${{ env.latest_version }}
+          destination_branch: master
+          pr_title: ebuild for net-im/zoom-${{ env.latest_version }}
+          pr_body: |
+            Hello!
+
+            There is a new version of Zoom available for download. Please
+            review this ebuild so that it can be published to the overlay.
