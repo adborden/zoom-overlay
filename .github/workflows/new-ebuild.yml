@@ -13,7 +13,7 @@ jobs:
       - name: Create a new ebuild
         run: |
           set -x
-          if [[ ./is_latest.sh ]]; then
+          if ./is_latest.sh; then
             exit 0
           fi
           echo "::set-env name=latest_verion::$(./is_latest.sh || exit 0)"
