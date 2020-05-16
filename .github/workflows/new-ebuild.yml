@@ -15,7 +15,7 @@ jobs:
           if ./is_latest.sh; then
             exit 0
           fi
-          echo "::set-env name=latest_verion::$(./is_latest.sh || exit 0)"
+          echo "::set-env name=latest_version::$(./is_latest.sh || exit 0)"
           ./update_ebuilds.sh
           docker pull aegypius/repoman
           docker run --rm -v $(pwd):/overlay aegypius/repoman manifest
@@ -23,7 +23,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -a -m "net-im/zoom-${latest_version}"
+          git add net-im/zoom
+          git commit -m "net-im/zoom-${latest_version}"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
