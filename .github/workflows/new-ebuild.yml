@@ -1,8 +1,9 @@
 ---
 name: New ebuild
-on:
-  schedule:
-    - cron: 0 * * * *
+on: [push]
+#on:
+#  schedule:
+#    - cron: 0 * * * *
 
 jobs:
   build:
@@ -27,14 +28,14 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ebuild-${{ latest_version }}
+          branch: ebuild-${{ env.latest_version }}
       - name: Initialize Pull Request
         uses: gha-utilities/init-pull-request@v0.1.6
         with:
           pull_request_token: ${{ secrets.GITHUB_TOKEN }}
-          head: ebuild-${{ latest_version }}
+          head: ebuild-${{ env.latest_version }}
           base: master
-          title: ebuild for net-im/zoom-${{ latest_version }}
+          title: ebuild for net-im/zoom-${{ env.latest_version }}
           body: >
             Hello!
 
