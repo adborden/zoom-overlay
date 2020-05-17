@@ -44,3 +44,14 @@ copy the most recent ebuild to the new version.
 Update the manifest.
 
     $ DISTDIR=/tmp repoman manifest
+
+
+## Continuous integration
+
+A scheduled GitHub Action triggers the New Ebuild workflow every hour in order
+to look for new versions of the Zoom client. [GitHub doesn't trigger additional
+workflows by default](https://help.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token),
+so we must setup a personal access token.
+
+In the GitHub repo, click Settings -> Secrets. Create a [personal access
+token](https://github.com/settings/tokens) and create a secret named `GH_TOKEN`.
