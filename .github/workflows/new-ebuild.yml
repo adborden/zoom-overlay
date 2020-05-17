@@ -40,6 +40,7 @@ jobs:
           git commit -m "net-im/zoom-${latest_version}"
       - name: Push changes
         uses: ad-m/github-push-action@master
+        continue-on-error: true
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           branch: ebuild-${{ env.latest_version }}
