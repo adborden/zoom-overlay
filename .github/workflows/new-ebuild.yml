@@ -41,12 +41,12 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}
           branch: ebuild-${{ env.latest_version }}
       - name: Initialize Pull Request
         uses: repo-sync/pull-request@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}
           source_branch: ebuild-${{ env.latest_version }}
           destination_branch: master
           pr_title: ebuild for net-im/zoom-${{ env.latest_version }}
