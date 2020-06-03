@@ -39,10 +39,11 @@ jobs:
           git add net-im/zoom
           git commit -m "net-im/zoom-${latest_version}"
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: adborden/github-push-action@adborden-patch-1
         continue-on-error: true
         with:
           github_token: ${{ secrets.GH_TOKEN }}
+          github_user: a14n-bot
           branch: ebuild-${{ env.latest_version }}
       - name: Initialize Pull Request
         uses: repo-sync/pull-request@v2
