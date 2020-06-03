@@ -6,6 +6,10 @@
 
 Gentoo overlay for the [Zoom.us](https://zoom.us/) video conferencing client.
 
+_Note: as of March 24th 2020,
+[net-im/zoom](https://packages.gentoo.org/packages/net-im/zoom) is in the
+official Gentoo tree and you should probably use that instead._
+
 
 ## Usage
 
