@@ -24,7 +24,9 @@ jobs:
     env:
       latest_version: ${{ needs.is_latest.outputs.latest_version }}
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
       - name: Create a new ebuild
         env:
           FEATURES: -ipc-sandbox -network-sandbox -pid-sandbox
@@ -39,7 +41,7 @@ jobs:
           git add net-im/zoom
           git commit -m "net-im/zoom-${latest_version}"
       - name: Push changes
-        uses: adborden/github-push-action@adborden-patch-1
+        uses: ad-m/github-push-action@v0.6.0
         continue-on-error: true
         with:
           github_token: ${{ secrets.GH_TOKEN }}
