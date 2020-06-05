@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
+          persist-credentials: false
       - name: Create a new ebuild
         env:
           FEATURES: -ipc-sandbox -network-sandbox -pid-sandbox
@@ -45,7 +45,6 @@ jobs:
         continue-on-error: true
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          github_user: a14n-bot
           branch: ebuild-${{ env.latest_version }}
       - name: Initialize Pull Request
         uses: repo-sync/pull-request@v2
